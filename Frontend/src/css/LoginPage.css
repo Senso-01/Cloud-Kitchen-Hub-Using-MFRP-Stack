@@ -1,0 +1,57 @@
+.background-wrapper {
+  position: relative;
+  height: 100vh;
+  background-image: url('../assets/background-image.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay-left-side {
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.overlay-right-side {
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.left-side h1 {
+  font-family: 'Righteous', sans-serif;
+  color: #ffffff;
+  font-size: 3rem;
+  margin: 0.5rem 0;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.left-side h1:nth-child(2) {
+  font-size: 5rem;
+  font-weight: normal;
+}
+
+
+.footer-links a {
+  color: lightgray;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #d3d3d3;
+}
+
+.footer-links {
+  text-align: center;
+  color: lightgray;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+.footer-link {
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
