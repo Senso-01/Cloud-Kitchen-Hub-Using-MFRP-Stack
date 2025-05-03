@@ -1,0 +1,7 @@
+[build]
+  base = "Frontend"
+  command = "npm run build:legacy"
+  publish = "Frontend/build"
+
+[context.production.environment]
+  NODE_VERSION = "16"
