@@ -2,7 +2,8 @@ from passlib.context import CryptContext
 from datetime import datetime, timezone, timedelta
 from config import SECRET_KEY, ALGORITHM
 import time
-import jwt as pyjwt
+from jwt.exceptions import ExpiredSignatureError, PyJWTError
+import jwt
 from models.user import DBUser
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Request
@@ -35,7 +36,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     else:
         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = pyjwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 
@@ -49,7 +50,7 @@ def create_reset_token(email: str, expires_delta: timedelta | None = None) -> st
 
     to_encode.update({"exp": expire})
 
-    encoded_jwt = pyjwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
     return encoded_jwt
 
@@ -68,17 +69,17 @@ def extract_token(request: Request) -> str:
 
 def decode_jwt(token: str) -> dict:
     try:
-        decoded_token: dict = pyjwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        decoded_token: dict = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         if decoded_token.get("exp", 0) < time.time():
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired"
             )
         return decoded_token
-    except pyjwt.ExpiredSignatureError:
+    except ExpiredSignatureError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired"
         )
-    except pyjwt.PyJWTError:
+    except PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
         )
