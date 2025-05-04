@@ -15,3 +15,4 @@ Run Command's
     > uvicorn main:app --reload
 
 Backend Running Port https://cloud-kitchen-hub-using-mfrp-stack.onrender.com/
+Frontend Running Url: https://cloudkitchenhub.netlify.app/
