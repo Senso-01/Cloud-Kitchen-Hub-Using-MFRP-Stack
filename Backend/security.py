@@ -4,6 +4,7 @@ from config import SECRET_KEY, ALGORITHM
 import time
 from jwt.exceptions import ExpiredSignatureError
 import jwt
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from models.user import DBUser
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Request
