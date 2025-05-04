@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timezone, timedelta
 from config import SECRET_KEY, ALGORITHM
 import time
-from jwt.exceptions import ExpiredSignatureError, PyJWTError
+from jwt.exceptions import ExpiredSignatureError
 import jwt
 from models.user import DBUser
 from sqlalchemy.orm import Session
@@ -79,7 +79,7 @@ def decode_jwt(token: str) -> dict:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired"
         )
-    except PyJWTError:
+    except jwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
         )
